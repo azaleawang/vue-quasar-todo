@@ -1,8 +1,6 @@
 export interface Todo {
-  id: number;
-  content: string;
-}
-
-export interface Meta {
-  totalCount: number;
+  content: string
+  category: string
+  done: boolean
+  createdAt: number
 }
