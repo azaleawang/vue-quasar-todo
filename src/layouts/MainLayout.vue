@@ -1,42 +1,54 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHh lpr fff">
     <q-header elevated>
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
-
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
+        <q-btn flat @click="toggleLeftDrawer" round dense icon="menu" />
+        <!-- <q-toolbar-title></q-toolbar-title> -->
       </q-toolbar>
+      <div class="q-mt-lg q-pb-lg q-mx-xl">
+        <div class="text-h3 q-mb-md">Tasks</div>
+        <div class="text-subtitle1">{{ todayDate }}</div>
+      </div>
     </q-header>
 
     <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
-      bordered
+      :width="200"
+      :breakpoint="640"
     >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
+      <q-scroll-area class="fit">
+        <q-list padding class="menu-list">
+          <q-item to="/" active clickable v-ripple>
+            <q-item-section avatar>
+              <q-icon name="task_alt" />
+            </q-item-section>
 
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
+            <q-item-section> All </q-item-section>
+          </q-item>
+
+          <q-item clickable v-ripple>
+            <q-item-section avatar>
+              <q-icon name="star" />
+            </q-item-section>
+
+            <q-item-section> Star </q-item-section>
+          </q-item>
+
+          <q-item clickable v-ripple>
+            <q-item-section avatar>
+              <q-icon name="list" />
+            </q-item-section>
+            <q-item-section> Category </q-item-section>
+          </q-item>
+          <q-item to="/about" clickable v-ripple>
+            <q-item-section avatar>
+              <q-icon name="info" />
+            </q-item-section>
+            <q-item-section> About </q-item-section>
+          </q-item>
+        </q-list>
+      </q-scroll-area>
     </q-drawer>
 
     <q-page-container>
@@ -46,61 +58,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import EssentialLink, { EssentialLinkProps } from 'components/EssentialLink.vue';
+import { date } from 'quasar';
+import { ref, computed } from 'vue';
 
 defineOptions({
-  name: 'MainLayout'
+  name: 'MainLayout',
 });
-
-const linksList: EssentialLinkProps[] = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-];
-
+const timeStamp = Date.now();
+const todayDate = computed(() => date.formatDate(timeStamp, 'YYYY-MM-DD ddd'));
 const leftDrawerOpen = ref(false);
-
-function toggleLeftDrawer () {
+function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
 </script>
+
+<style lang="sass" scoped>
+.menu-list .q-item
+  border-radius: 0 32px 32px 0
+</style>

@@ -18,12 +18,11 @@ const filteredTodos = computed(() => {
   <TodoCompleted v-model:todos="filteredTodos" :removeTodo="removeTodo" />
 </template>
 
-<style>
-.task-btn:hover {
-  cursor: pointer;
-
-  h3 {
-    font-weight: bold;
+<style lang="scss">
+.done {
+  .todo-content {
+    text-decoration: line-through;
+    color: #bbb;
   }
 }
 </style>

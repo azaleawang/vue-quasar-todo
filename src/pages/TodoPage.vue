@@ -1,5 +1,5 @@
 <template>
-  <q-page class="row items-center justify-evenly">
+  <q-page class="column bg-grey-2 q-pa-md">
     <main class="app container">
       <div class="app-container">
         <UsernameInput v-model:name="username" />
