@@ -21,12 +21,12 @@ defineProps({
 </script>
 
 <template>
-  <q-page v-if="todosCompleted.length > 0">
+  <section v-if="todosCompleted.length > 0">
     <q-expansion-item
       expand-separator
       icon="task_alt"
       :label="`Completed (${todosCompleted.length})`"
-      @click="showCompleted = !showCompleted"
+      header-class="text-grey-7 text-subtitle1"
     >
       <q-list class="bg-white" separator>
         <q-item
@@ -34,22 +34,21 @@ defineProps({
           :key="todo.createdAt"
           :class="{ done: todo.done }"
           v-ripple
-          @click="todo.done = !todo.done"
-          clickable
         >
           <q-item-section avatar>
             <q-checkbox
               v-model="todo.done"
-              class="no-pointer-events"
               checked-icon="done"
               unchecked-icon="radio_button_unchecked"
               color="accent"
             />
           </q-item-section>
           <q-item-section>
-            <q-item-label class="text-body1 todo-content">{{
-              todo.content
-            }}</q-item-label>
+            <input
+              class="text-body1 todo-content"
+              v-model="todo.content"
+              style="outline: none; border: 0"
+            />
             <!-- <q-item-label caption>{{  }}</q-item-label> -->
           </q-item-section>
           <q-item-section avatar>
@@ -65,5 +64,5 @@ defineProps({
       </q-list>
     </q-expansion-item>
     <div v-if="showCompleted" class="list"></div>
-  </q-page>
+  </section>
 </template>

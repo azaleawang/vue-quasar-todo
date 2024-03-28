@@ -1,14 +1,14 @@
 <template>
-  <q-layout view="hHh lpr fff">
+  <q-layout view="hHh Lpr fff">
     <q-header elevated>
       <q-toolbar>
         <q-btn flat @click="toggleLeftDrawer" round dense icon="menu" />
         <!-- <q-toolbar-title></q-toolbar-title> -->
       </q-toolbar>
-      <div class="q-mt-lg q-pb-lg q-mx-xl">
-        <div class="text-h3 q-mb-md">Tasks</div>
+      <!-- <div class="q-pb-lg q-ml-xl q-pl-xl">
+        <div class="text-h3 q-mb-md">My Tasks</div>
         <div class="text-subtitle1">{{ todayDate }}</div>
-      </div>
+      </div> -->
     </q-header>
 
     <q-drawer
@@ -21,7 +21,7 @@
         <q-list padding class="menu-list">
           <q-item to="/" active clickable v-ripple>
             <q-item-section avatar>
-              <q-icon name="task_alt" />
+              <q-icon name="task_alt" color="secondary" />
             </q-item-section>
 
             <q-item-section> All </q-item-section>
@@ -29,21 +29,13 @@
 
           <q-item clickable v-ripple>
             <q-item-section avatar>
-              <q-icon name="star" />
-            </q-item-section>
-
-            <q-item-section> Star </q-item-section>
-          </q-item>
-
-          <q-item clickable v-ripple>
-            <q-item-section avatar>
-              <q-icon name="list" />
+              <q-icon name="list" color="secondary" />
             </q-item-section>
             <q-item-section> Category </q-item-section>
           </q-item>
           <q-item to="/about" clickable v-ripple>
             <q-item-section avatar>
-              <q-icon name="info" />
+              <q-icon name="info" color="secondary" />
             </q-item-section>
             <q-item-section> About </q-item-section>
           </q-item>

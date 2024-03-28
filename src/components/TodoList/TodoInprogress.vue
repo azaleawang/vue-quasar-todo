@@ -18,12 +18,13 @@ defineProps({
 </script>
 
 <template>
-  <q-page>
+  <section>
     <q-expansion-item
       expand-separator
       icon="donut_large"
       :label="`In-progress (${todosInprogress.length})`"
       default-opened
+      header-class="text-subtitle1"
     >
       <q-list v-if="todosInprogress.length" class="bg-white" separator>
         <q-item
@@ -31,23 +32,17 @@ defineProps({
           :key="todo.createdAt"
           :class="{ done: todo.done }"
           v-ripple
-          @click="todo.done = !todo.done"
-          clickable
         >
           <q-item-section avatar>
             <q-checkbox
               v-model="todo.done"
-              class="no-pointer-events"
               checked-icon="done"
               unchecked-icon="radio_button_unchecked"
               color="accent"
             />
           </q-item-section>
           <q-item-section>
-            <q-item-label class="text-body1 todo-content">{{
-              todo.content
-            }}</q-item-label>
-            <!-- <q-item-label caption>{{  }}</q-item-label> -->
+            <input class="text-body1 todo-content" v-model="todo.content" style="outline:none; border: 0;"/>
           </q-item-section>
           <q-item-section avatar>
             <q-btn
@@ -60,9 +55,15 @@ defineProps({
           </q-item-section>
         </q-item>
       </q-list>
-      <section v-else class="todo-empty">
-        <p class="text-subtitle1">No tasks yet</p>
+      <section v-else class="text-center">
+        <q-img
+          src="../../assets/task-done.png"
+          spinner-color="white"
+          style="width: 250px"
+        ></q-img>
+        <p class="text-subtitle1"></p>
       </section>
     </q-expansion-item>
-  </q-page>
+  </section>
 </template>
+
