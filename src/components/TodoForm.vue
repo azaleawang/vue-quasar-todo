@@ -30,9 +30,9 @@ const resetForm = () => {
 };
 </script>
 <template>
-  <div class="col-8 col-md-9">
+  <div>
     <q-input
-      class="q-ma-lg text-body1"
+      class="text-body1"
       rounded
       outlined
       v-model="todoContent"

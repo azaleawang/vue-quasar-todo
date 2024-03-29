@@ -1,6 +1,7 @@
 <template>
   <q-page class="q-pa-md column items-center">
     <main class="col" style="width: 100%; max-width: 800px">
+      <p class="text-h3 text-weight-bold q-ma-lg ">My Task</p>
       <!-- <UsernameInput v-model:name="username" /> -->
       <!-- <div>
         <select class="form-select my-2" v-model="selectedCategory">
@@ -25,19 +26,20 @@
         </div>
       </h3>
       </div> -->
-      <div class="row items-center">
+      <div class="row items-center q-col-gutter-md q-px-sm">
         <q-select
           rounded
           outlined
           v-model="selectedCategory"
           :options="categoryList"
-          class="col-4 col-md-3"
+          class="col-12 col-sm-4"
         >
           <template v-slot:prepend>
             <q-icon name="category" color="secondary" />
           </template>
         </q-select>
         <TodoForm
+          class="col-12 col-sm-8"
           v-model:todos="todos"
           v-model:category="todoCategory"
           :selectedCategory="selectedCategory"
