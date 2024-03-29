@@ -5,12 +5,14 @@ import TodoCompleted from './TodoCompleted.vue';
 import TodoInprogress from './TodoInprogress.vue';
 
 const todos = defineModel('todos') as ModelRef<Todo[]>;
-const props = defineProps(['selectedCategory']);
+const props = defineProps({
+  filteredCategory: Array,
+});
 const removeTodo = (todo: Todo) => {
   todos.value = todos.value.filter((t) => t !== todo);
 };
 const filteredTodos = computed(() => {
-  return todos.value.filter((todo) => props.selectedCategory === todo.category);
+  return todos.value.filter((todo) => props.filteredCategory?.includes(todo.category));
 });
 </script>
 <template>

@@ -38,7 +38,6 @@ const resetForm = () => {
       v-model="todoContent"
       placeholder="Add new task"
       required
-      icon="task"
       @keyup.enter="addTodo"
     >
       <q-btn rounded flat icon="add" @click="addTodo" />
