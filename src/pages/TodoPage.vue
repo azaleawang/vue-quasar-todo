@@ -34,8 +34,7 @@ import TodoList from '../components/TodoList/TodoListIndex.vue';
 const todos = ref<Todo[]>([]);
 const username = ref('');
 const todoCategory = ref('work');
-const props = defineProps(['filteredCategory', 'categoryList']);
-const categories = ref(props.categoryList);
+defineProps(['filteredCategory', 'categoryList']);
 // const categoryList = ref<string[]>(['work', 'personal']);
 const selectedCategory = ref<string>('work');
 
@@ -55,14 +54,6 @@ watch(
 
 onMounted(() => {
   const storedTodos = localStorage.getItem('todos');
-  const storedCategoryList = localStorage.getItem('categoryList');
   todos.value = storedTodos ? JSON.parse(storedTodos) : [];
-  if (storedCategoryList) {
-    const parsedCategoryList = JSON.parse(storedCategoryList);
-    console.log(parsedCategoryList);
-    categories.value = JSON.parse(storedCategoryList);
-  } else {
-    localStorage.setItem('categoryList', JSON.stringify(categories.value));
-  }
 });
 </script>

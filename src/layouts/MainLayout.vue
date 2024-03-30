@@ -114,7 +114,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 
 defineOptions({
   name: 'MainLayout',
@@ -145,4 +145,15 @@ watch(
     deep: true,
   }
 );
+
+onMounted(() => {
+  const storedCategoryList = localStorage.getItem('categoryList');
+  if (storedCategoryList) {
+    const parsedCategoryList = JSON.parse(storedCategoryList);
+    console.log(parsedCategoryList);
+    categoryList.value = JSON.parse(storedCategoryList);
+  } else {
+    localStorage.setItem('categoryList', JSON.stringify(categoryList.value));
+  }
+});
 </script>
