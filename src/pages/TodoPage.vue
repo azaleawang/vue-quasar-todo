@@ -7,7 +7,7 @@
           rounded
           outlined
           v-model="selectedCategory"
-          :options="categoryList"
+          :options="categories"
           class="col-12 col-sm-4"
         >
           <template v-slot:prepend>
@@ -27,20 +27,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch, inject, type Ref } from 'vue';
 import type { Todo } from '../components/models';
 import TodoForm from '../components/TodoForm.vue';
 import TodoList from '../components/TodoList/TodoListIndex.vue';
-const todos = ref<Todo[]>([]);
-const username = ref('');
-const todoCategory = ref('work');
-defineProps(['filteredCategory', 'categoryList']);
-// const categoryList = ref<string[]>(['work', 'personal']);
-const selectedCategory = ref<string>('work');
 
-watch(username, (newName) => {
-  localStorage.setItem('username', newName);
-});
+defineProps(['filteredCategory', 'categoryList']);
+const todos = ref<Todo[]>([]);
+const todoCategory = ref('work');
+const selectedCategory = ref<string>('work');
+const categories = inject('categoryList') as Ref<string[]>;
 
 watch(
   todos,
