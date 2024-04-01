@@ -1,22 +1,3 @@
-<script setup lang="ts">
-import type { Todo } from '../models';
-import { computed, type ModelRef } from 'vue';
-
-const todos = defineModel('todos') as ModelRef<Todo[]>;
-
-const todosInprogress = computed(() => {
-  return todos.value
-    .filter((todo) => !todo.done)
-    .sort((a, b) => b.createdAt - a.createdAt);
-});
-defineProps({
-  removeTodo: {
-    type: Function,
-    default: () => () => console.warn('removeTodo not provided'),
-  },
-});
-</script>
-
 <template>
   <section>
     <q-expansion-item
@@ -42,7 +23,11 @@ defineProps({
             />
           </q-item-section>
           <q-item-section>
-            <input class="text-body1 todo-content" v-model="todo.content" style="outline:none; border: 0;"/>
+            <input
+              class="text-body1 todo-content"
+              v-model="todo.content"
+              style="outline: none; border: 0"
+            />
           </q-item-section>
           <q-item-section avatar>
             <q-btn
@@ -67,3 +52,22 @@ defineProps({
   </section>
 </template>
 
+<script setup lang="ts">
+import type { Todo } from '../models';
+import { computed, type ModelRef } from 'vue';
+
+defineProps({
+  removeTodo: {
+    type: Function,
+    default: () => () => console.warn('removeTodo not provided'),
+  },
+});
+
+const todos = defineModel('todos') as ModelRef<Todo[]>;
+
+const todosInprogress = computed(() => {
+  return todos.value
+    .filter((todo) => !todo.done)
+    .sort((a, b) => b.createdAt - a.createdAt);
+});
+</script>
