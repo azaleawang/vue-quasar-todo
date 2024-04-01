@@ -37,63 +37,10 @@
         "
       >
         <q-list padding class="menu-list">
-          <q-item
-            to="/"
-            active
-            clickable
-            v-ripple
-            @click="filteredCategory = categoryList"
-          >
-            <q-item-section avatar>
-              <q-icon name="task_alt" color="secondary" />
-            </q-item-section>
-
-            <q-item-section> All </q-item-section>
-          </q-item>
-
-          <q-expansion-item
-            icon="category"
-            header-class="text-secondary"
-            label="Category"
-          >
-            <q-card>
-              <q-item
-                tag="label"
-                v-for="category in categoryList"
-                :key="category"
-                v-ripple
-                class="text-secondary q-px-lg q-py-none"
-              >
-                <q-item-section avatar>
-                  <q-checkbox
-                    v-model="filteredCategory"
-                    :val="category"
-                    active
-                  />
-                </q-item-section>
-                <q-item-section>
-                  <q-item-label>{{ category }}</q-item-label>
-                </q-item-section>
-              </q-item>
-              <!-- Add a new category -->
-              <q-item
-                tag="label"
-                v-ripple
-                class="text-secondary q-px-lg q-py-none"
-              >
-                <q-item-section avatar>
-                  <q-btn icon="add" flat round @click="addCategory" />
-                </q-item-section>
-                <q-input
-                  v-model="newCategory"
-                  @keyup.enter="addCategory"
-                  dense
-                  required
-                  placeholder="New"
-                />
-              </q-item>
-            </q-card>
-          </q-expansion-item>
+          <CategorySidebar
+            v-model:category="categoryList"
+            v-model:filteredCategory="filteredCategory"
+          />
           <q-item to="/about" clickable v-ripple>
             <q-item-section avatar>
               <q-icon name="info" color="secondary" />
@@ -105,46 +52,27 @@
     </q-drawer>
 
     <q-page-container>
-      <router-view
-        :filteredCategory="filteredCategory"
-        :categoryList="categoryList"
-      />
+      <router-view />
     </q-page-container>
   </q-layout>
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue';
-
+import { ref, provide, onMounted, watch } from 'vue';
+import CategorySidebar from '../components/CategorySidebar.vue';
 defineOptions({
   name: 'MainLayout',
 });
+const categoryList = ref<string[]>(['work', 'personal']);
+provide('categoryList', categoryList); // provide to TodoPage component
+
+const filteredCategory = ref<string[]>(categoryList.value);
+provide('filteredCategory', filteredCategory); // provide to TodoPage component
 
 const leftDrawerOpen = ref(false);
-const newCategory = ref('');
-const categoryList = ref<string[]>(['work', 'personal']);
-const filteredCategory = ref(categoryList.value);
-
 const toggleLeftDrawer = () => {
   leftDrawerOpen.value = !leftDrawerOpen.value;
 };
-
-const addCategory = () => {
-  if (newCategory.value && !categoryList.value.includes(newCategory.value)) {
-    categoryList.value.push(newCategory.value);
-    newCategory.value = '';
-  }
-};
-
-watch(
-  categoryList,
-  (newCategoryList) => {
-    localStorage.setItem('categoryList', JSON.stringify(newCategoryList));
-  },
-  {
-    deep: true,
-  }
-);
 
 onMounted(() => {
   const storedCategoryList = localStorage.getItem('categoryList');
@@ -156,4 +84,14 @@ onMounted(() => {
     localStorage.setItem('categoryList', JSON.stringify(categoryList.value));
   }
 });
+
+watch(
+  categoryList,
+  (newCategoryList) => {
+    localStorage.setItem('categoryList', JSON.stringify(newCategoryList));
+  },
+  {
+    deep: true,
+  }
+);
 </script>

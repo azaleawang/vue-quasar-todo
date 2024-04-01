@@ -1,3 +1,19 @@
+<template>
+  <div>
+    <q-input
+      class="text-body1"
+      rounded
+      outlined
+      v-model="todoContent"
+      placeholder="Add new task"
+      required
+      @keyup.enter="addTodo"
+    >
+      <q-btn rounded flat icon="add" @click="addTodo" />
+    </q-input>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { ref, type ModelRef } from 'vue';
 import type { Todo } from './models';
@@ -20,7 +36,6 @@ const addTodo = () => {
     };
     todos.value.push(newTodo);
     resetForm();
-    console.log(newTodo);
   }
 };
 
@@ -29,19 +44,3 @@ const resetForm = () => {
   todoCategory.value = 'work';
 };
 </script>
-<template>
-  <div>
-    <q-input
-      class="text-body1"
-      rounded
-      outlined
-      v-model="todoContent"
-      placeholder="Add new task"
-      required
-      @keyup.enter="addTodo"
-    >
-      <q-btn rounded flat icon="add" @click="addTodo" />
-    </q-input>
-  </div>
-</template>
-<style lang="sass"></style>
