@@ -32,7 +32,10 @@ import type { Todo } from '../components/models';
 import TodoForm from '../components/TodoForm.vue';
 import TodoList from '../components/TodoList/TodoListIndex.vue';
 
-defineProps(['filteredCategory', 'categoryList']);
+defineProps<{
+  filteredCategory: string[]
+  categoryList?: string[]
+}>()
 const todos = ref<Todo[]>([]);
 const todoCategory = ref('work');
 const selectedCategory = ref<string>('work');

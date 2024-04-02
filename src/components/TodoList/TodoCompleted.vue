@@ -21,7 +21,7 @@
               color="accent"
             />
           </q-item-section>
-          <q-item-section>
+          <q-item-section class="todo-container" style="">
             <input
               class="text-body1 todo-content"
               v-model="todo.content"

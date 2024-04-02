@@ -20,7 +20,9 @@ import type { Todo } from './models';
 
 const todos = defineModel('todos') as ModelRef<Todo[]>;
 const todoCategory = defineModel('category') as ModelRef<string>;
-const props = defineProps(['selectedCategory']);
+const props = defineProps<{
+  selectedCategory: string;
+}>();
 const todoContent = ref('');
 
 const isValidInput = () =>

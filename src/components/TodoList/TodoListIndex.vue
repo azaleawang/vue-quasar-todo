@@ -39,4 +39,10 @@ const filteredTodos = computed(() => {
     color: #bbb;
   }
 }
+
+.todo-container {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 </style>
